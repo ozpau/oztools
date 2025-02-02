@@ -5,4 +5,11 @@ d = { 'settings': { 'branch': 'main',
                 'doc_host': 'https://ozellpaukert.github.io',
                 'git_url': 'https://github.com/ozellpaukert/oztools',
                 'lib_path': 'oztools'},
-  'syms': {'oztools.core': {'oztools.core.foo': ('core.html#foo', 'oztools/core.py')}}}
+  'syms': { 'oztools.gh': {},
+            'oztools.kgl': { 'oztools.kgl.attrkey': ('api/kgl.html#attrkey', 'oztools/kgl.py'),
+                             'oztools.kgl.cz': ('api/kgl.html#cz', 'oztools/kgl.py'),
+                             'oztools.kgl.disp_comp': ('api/kgl.html#disp_comp', 'oztools/kgl.py'),
+                             'oztools.kgl.kgl_hello': ('api/kgl.html#kgl_hello', 'oztools/kgl.py'),
+                             'oztools.kgl.kgl_list': ('api/kgl.html#kgl_list', 'oztools/kgl.py'),
+                             'oztools.kgl.pad': ('api/kgl.html#pad', 'oztools/kgl.py'),
+                             'oztools.kgl.str_enumerate': ('api/kgl.html#str_enumerate', 'oztools/kgl.py')}}}
