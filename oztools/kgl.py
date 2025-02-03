@@ -12,12 +12,12 @@ import itertools as it
 
 from .core import *
 
-# %% ../nbs/api/03_kgl.ipynb 6
+# %% ../nbs/api/03_kgl.ipynb 7
 def disp_comp(comp):
     slug = comp.url.split("/")[-1]
     return f"{pad(slug[:40],40)} {comp.title[:40]}"
 
-# %% ../nbs/api/03_kgl.ipynb 9
+# %% ../nbs/api/03_kgl.ipynb 10
 @call_parse
 def kgl_list():
     "List kaggle competitions"
@@ -32,7 +32,7 @@ def kgl_list():
     return '\n'.join(("Joined:", *str_enumerate(map(disp_comp, entered), 1),
                       "Active:", *str_enumerate(map(disp_comp, active), 1+len(entered))))
 
-# %% ../nbs/api/03_kgl.ipynb 11
+# %% ../nbs/api/03_kgl.ipynb 12
 @call_parse
 def kgl_hello():
     import os
