@@ -7,5 +7,6 @@ jobs:
     steps:
       - uses: fastai/workflows/nbdev-ci@master
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
           KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
