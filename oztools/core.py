@@ -7,8 +7,6 @@ __all__ = ['pad', 'attrkey', 'str_enumerate', 'cz']
 
 # %% ../nbs/api/00_core.ipynb 3
 from fastcore.all import *
-from fastkaggle import *
-import itertools as it
 
 # %% ../nbs/api/00_core.ipynb 4
 def pad(s: str, pad_to: int):

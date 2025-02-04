@@ -68,12 +68,12 @@ def new_notebook_template(name, description):
     }
     return template
 
-# %% ../nbs/api/02_nbd.ipynb 8
+# %% ../nbs/api/02_nbd.ipynb 9
 def zero_pad(num):
     num = str(num)
     return num if len(num) > 1 else f"0{num}"
 
-# %% ../nbs/api/02_nbd.ipynb 10
+# %% ../nbs/api/02_nbd.ipynb 11
 @call_parse
 def nbd_add(name:str, description:str,
             at:Optional[int] = None # If specified, insert new notebook at a specific position
