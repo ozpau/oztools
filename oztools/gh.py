@@ -71,8 +71,9 @@ def commit_and_push(repo: Repo, # Repo to commit and push
     origin = repo.remote(name='origin')
     origin.push()
 
-# %% ../nbs/api/01_gh.ipynb 19
+# %% ../nbs/api/01_gh.ipynb 20
 def setup_pages(repo_name):
+    # TODO: gotta create branch before setting up pages
     new_source = {"branch":"gh-pages"}
     try:
         api.repos.create_pages_site(repo_name, source={"branch":"gh-pages"})

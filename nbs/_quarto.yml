@@ -3,7 +3,9 @@ project:
 
 format:
   html:
-    theme: cosmo
+    theme:
+      light: united
+      dark: superhero
     css: styles.css
     toc: true
     keep-md: true
@@ -13,6 +15,7 @@ website:
   twitter-card: true
   open-graph: true
   repo-actions: [issue]
+  favicon: favicon.png
   navbar:
     background: primary
     search: true

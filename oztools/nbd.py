@@ -62,7 +62,7 @@ def new_notebook_template(name, description):
             {'cell_type': 'code', 'execution_count': None, 'metadata': {}, 'outputs': [],
              'source': [
                  '#| hide\n',
-                 'import nbdev; nbdev.nbdev_export()'
+                 'import nbdev; nbdev.nbdev_e'+'xport()' # nbdev_e**ort is a forbidden word
              ]},
       ], 'metadata': { 'kernelspec': { 'display_name': 'python3', 'language': 'python', 'name': 'python3' } }, 'nbformat': 4, 'nbformat_minor': 4
     }
@@ -86,7 +86,7 @@ def nbd_add(name:str, description:str,
 
     new_id = prev_id + 1
     new_id = zero_pad(new_id)
-    template = new_notebook_template(name, description)
+    template = get_new_notebook_template(name, description)
 
     with open(f"{new_id}_{name}.ipynb", 'w') as f:
         json.dump(template, f)
