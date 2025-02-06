@@ -28,14 +28,14 @@ import re
 @call_parse
 def nbd_new(name:str, description:str, license:str="Apache-2.0", private:bool=False):
     "Create a new nbdev project and setup github repo for it"
-    repo, cloned = gh_new_repo_fn(name, description, license, private)
-    os.chdir(repo.name)
+    gh_repo, local_repo = gh_new_repo_fn(name, description, license, private)
+    os.chdir(gh_repo.name)
     subprocess.run(["nbdev_new"])
     subprocess.run(["nbdev_install_hooks"])
     subprocess.run(["nbdev_prepare"])
     subprocess.run(["nbdev_clean"])
-    commit_and_push(cloned, "Initial commit")
-    setup_pages(repo.name)
+    commit_and_push(local_repo, "Initial commit")
+    setup_pages(local_repo, gh_repo.name)
 
 # %% ../nbs/api/02_nbd.ipynb 5
 def new_notebook_template(name, description):

@@ -4,7 +4,7 @@
 
 # %% auto 0
 __all__ = ['logger', 'configpath', 'config', 'token', 'api', 'gh_licenses', 'gh_new_repo_fn', 'gh_new_repo', 'commit_and_push',
-           'setup_pages']
+           'add_new_branch', 'setup_pages']
 
 # %% ../nbs/api/01_gh.ipynb 3
 from fastcore.all import *
@@ -52,9 +52,9 @@ def gh_licenses():
 
 # %% ../nbs/api/01_gh.ipynb 9
 def gh_new_repo_fn(name, description, license, private):
-    repo = api.repos.create_for_authenticated_user(name, description, private=private, license_template=license)
-    cloned = Repo.clone_from(repo.ssh_url, repo.name)
-    return repo, cloned
+    gh_repo = api.repos.create_for_authenticated_user(name, description, private=private, license_template=license)
+    local_repo = Repo.clone_from(gh_repo.ssh_url, gh_repo.name)
+    return gh_repo, local_repo
 
 # %% ../nbs/api/01_gh.ipynb 10
 @call_parse
@@ -72,7 +72,14 @@ def commit_and_push(repo: Repo, # Repo to commit and push
     origin.push()
 
 # %% ../nbs/api/01_gh.ipynb 20
-def setup_pages(repo_name):
+def add_new_branch(repo: Repo, branch_name: str):
+    "Create new branch and push it to upstream"
+    head = repo.create_head(branch_name)
+    repo.git.push('--set-upstream', 'origin', head)
+
+# %% ../nbs/api/01_gh.ipynb 21
+def setup_pages(local_repo: Repo, repo_name: str):
+    add_new_branch(local_repo, 'gh-pages')
     # TODO: gotta create branch before setting up pages
     new_source = {"branch":"gh-pages"}
     try:
