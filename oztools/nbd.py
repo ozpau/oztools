@@ -109,7 +109,7 @@ def nbd_add(name:str, description:str,
 
     new_id = prev_id + 1
     new_id = zero_pad(new_id)
-    template = get_new_notebook_template(name, description)
+    template = new_notebook_template(name, description)
 
     with open(f"{new_id}_{name}.ipynb", 'w') as f:
         json.dump(template, f)
