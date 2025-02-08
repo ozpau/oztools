@@ -21,12 +21,12 @@ def setup_comp(competition, install=''):
             os.system(f'pip install -Uqq {install}')
         return Path('../input')/competition
     else:
-        path = Path('./data')/competition
+        path = Path('./var')/competition
         api = import_kaggle()
         if not path.exists():
             import zipfile
-            api.competition_download_cli(str(competition), path='./data')
-            zipfile.ZipFile(f'./data/{competition}.zip').extractall(path)
+            api.competition_download_cli(str(competition), path='./var')
+            zipfile.ZipFile(f'./var/{competition}.zip').extractall(path)
         return path
 
 # %% ../nbs/api/03_kgl.ipynb 11
