@@ -4,6 +4,6 @@ project:
 website:
   title: "oztools"
   site-url: "https://ozellpaukert.github.io/oztools"
-  description: "Random collection of tools"
+  description: "Productivity tools for GitHub, nbdev and Kaggle"
   repo-branch: main
   repo-url: "https://github.com/ozellpaukert/oztools"
