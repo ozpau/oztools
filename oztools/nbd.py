@@ -23,7 +23,8 @@ import subprocess
 import json
 
 from glob import glob
-import re, yaml
+import re, yaml, shutil
+import importlib.resources as res
 
 # %% ../nbs/api/02_nbd.ipynb 5
 def make_things_pretty():
@@ -33,13 +34,16 @@ def make_things_pretty():
     theme = {'light': 'united', 'dark': 'superhero'}
     with open("./nbs/_quarto.yml", 'r') as f: data = yaml.safe_load(f)
     data['format']['html']['theme'] = theme
-    with open(path/"nbs/_quarto.yml", 'w') as f: f.write(yaml.dump(data))
+    data['website']['favicon'] = 'favicon.png'
+    with open("./nbs/_quarto.yml", 'w') as f: f.write(yaml.dump(data))
+    # Copy favicon
+    with res.as_file(res.files("oztools")/"data/favicon.png") as f: shutil.copy(f, "./nbs")
 
 # %% ../nbs/api/02_nbd.ipynb 6
 def nbd_new_fn(name:str, description:str, license:str="Apache-2.0", private:bool=False):
     "Create a new nbdev project and setup github repo for it"
     gh_repo, local_repo = gh_new_repo_fn(name, description, license, private)
-    setup_pages(local_repo, gh_repo.name)
+    setup_pages_branch(local_repo, gh_repo.name)
     os.chdir(gh_repo.name)
     subprocess.run(["nbdev_new"])
     subprocess.run(["nbdev_install_hooks"])
@@ -48,6 +52,7 @@ def nbd_new_fn(name:str, description:str, license:str="Apache-2.0", private:bool
     subprocess.run(["nbdev_clean"])
     subprocess.run(["pip", "install", "-e", ".[dev]"])
     commit_and_push(local_repo, "Initial commit")
+    setup_pages_branch_location(local_repo, gh_repo.name)
 
 # %% ../nbs/api/02_nbd.ipynb 7
 @call_parse
