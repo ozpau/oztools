@@ -29,7 +29,7 @@ import importlib.resources as res
 # %% ../nbs/api/02_nbd.ipynb 5
 def make_things_pretty():
     # Fix not being able to click on "source" link in docs
-    with open("./nbs/styles.css", 'a') as f: f.write("h3 {\n  width: fit-content;\n}")
+    with open("./nbs/styles.css", 'a') as f: f.write("\nh3 {\n  width: fit-content;\n}")
     # Add dark theme and make bright theme compatible with in in colorscheme
     theme = {'light': 'united', 'dark': 'superhero'}
     with open("./nbs/_quarto.yml", 'r') as f: data = yaml.safe_load(f)
