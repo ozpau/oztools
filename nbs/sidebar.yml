@@ -8,3 +8,4 @@ website:
           - api/01_gh.ipynb
           - api/02_nbd.ipynb
           - api/03_kgl.ipynb
+          - api/04_format.ipynb
