@@ -1,0 +1,119 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "oztools",
+    "section": "",
+    "text": "This file will become your README and also the index of your documentation.",
+    "crumbs": [
+      "oztools"
+    ]
+  },
+  {
+    "objectID": "index.html#developer-guide",
+    "href": "index.html#developer-guide",
+    "title": "oztools",
+    "section": "Developer Guide",
+    "text": "Developer Guide\nIf you are new to using nbdev here are some useful pointers to get you started.\n\nInstall oztools in Development mode\n# make sure oztools package is installed in development mode\n$ pip install -e .\n\n# make changes under nbs/ directory\n# ...\n\n# compile to have changes apply to oztools\n$ nbdev_prepare",
+    "crumbs": [
+      "oztools"
+    ]
+  },
+  {
+    "objectID": "index.html#usage",
+    "href": "index.html#usage",
+    "title": "oztools",
+    "section": "Usage",
+    "text": "Usage\n\nInstallation\nInstall latest from the GitHub repository:\n$ pip install git+https://github.com/ozellpaukert/oztools.git\nor from conda\n$ conda install -c ozellpaukert oztools\nor from pypi\n$ pip install oztools\n\n\nDocumentation\nDocumentation can be found hosted on this GitHub repository’s pages. Additionally you can find package manager specific guidelines on conda and pypi respectively.",
+    "crumbs": [
+      "oztools"
+    ]
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "oztools",
+    "section": "How to use",
+    "text": "How to use\nFill me in please! Don’t forget code examples:\n\n1+1\n\n2",
+    "crumbs": [
+      "oztools"
+    ]
+  },
+  {
+    "objectID": "api/nbd.html",
+    "href": "api/nbd.html",
+    "title": "nbd",
+    "section": "",
+    "text": "path = Path(\"../..\")\nPath.BASE_PATH = path\n\n\nsource\n\nmake_things_pretty\n\n make_things_pretty ()\n\n\nsource\n\n\nnbd_new_fn\n\n nbd_new_fn (name:str, description:str, license:str='Apache-2.0',\n             private:bool=False)\n\nCreate a new nbdev project and setup github repo for it\n\nsource\n\n\nnbd_new\n\n nbd_new (name:str, description:str, license:str='Apache-2.0',\n          private:bool=False)\n\nCreate a new nbdev project and setup github repo for it\n\nsource\n\n\nnew_notebook_template\n\n new_notebook_template (name, description)\n\nFIXME: Cell below results in an error for some reason\n\ntemplate = new_notebook_template(\"foo\", \"Makes foo using bar\")\nprint('\\n---\\n\\n'.join(L(template['cells']).attrgot('source').map(''.join)))\n\n\nm = re.match(r'(\\d+).*\\.ipynb', '99ab_asd.ipynb')\nm.group(1)\n\n\nsource\n\n\nzero_pad\n\n zero_pad (num)\n\n\ntest_eq(zero_pad(9), '09')\ntest_eq(zero_pad(32), '32')\n\n\nsource\n\n\nnbd_add\n\n nbd_add (name:str, description:str, at:Optional[int]=None)\n\nAdd new notebook to the project\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nname\nstr\n\n\n\n\ndescription\nstr\n\n\n\n\nat\nOptional\nNone\nIf specified, insert new notebook at a specific position",
+    "crumbs": [
+      "api",
+      "nbd"
+    ]
+  },
+  {
+    "objectID": "api/format.html",
+    "href": "api/format.html",
+    "title": "format",
+    "section": "",
+    "text": "source\n\ninit_pygments\n\n init_pygments ()\n\nCall this at the beginning of the notebook\n\nsource\n\n\ncode_pygments\n\n code_pygments (c:str, language:str)\n\nDisplay code with syntax highlighting\n\nsource\n\n\ncode_markdown\n\n code_markdown (c:str, lang:str)\n\nExample:\n\nc = \"\"\"\n#include &lt;iostream&gt;\n\nint main() {\n  std::cout &lt;&lt; \"Hello, world!\"\n}\n\"\"\"\n\nUse pygments to make html piece:\n\ninit_pygments()\ncode_pygments(c, \"cpp\")\n\n\n\n\n#include &lt;iostream&gt;\n\nint main() {\n  std::cout &lt;&lt; \"Hello, world!\"\n}\n\n\n\nDisplay markdown:\n\ncode_markdown(c, \"cpp\")\n\n\n#include &lt;iostream&gt;\n\nint main() {\n  std::cout &lt;&lt; \"Hello, world!\"\n}\n\n\nInsert as an actual markdown cell:\n#include &lt;iostream&gt;\n\nint main() {\n    std::cout &lt;&lt; \"Hello, world!\"\n}",
+    "crumbs": [
+      "api",
+      "format"
+    ]
+  },
+  {
+    "objectID": "api/kgl.html",
+    "href": "api/kgl.html",
+    "title": "kgl",
+    "section": "",
+    "text": "This module requires kaggle API token in order to work. See here for info on how to setup that.",
+    "crumbs": [
+      "api",
+      "kgl"
+    ]
+  },
+  {
+    "objectID": "api/kgl.html#competition-utils",
+    "href": "api/kgl.html#competition-utils",
+    "title": "kgl",
+    "section": "Competition utils",
+    "text": "Competition utils\nModified version of setup_comp from fastkaggle. I like to put my data into data folders so it’s easier to mask them in version control.\n\nsource\n\nsetup_comp\n\n setup_comp (competition, install='')\n\nGet a path to data for competition, downloading it if needed",
+    "crumbs": [
+      "api",
+      "kgl"
+    ]
+  },
+  {
+    "objectID": "api/kgl.html#setup-competition-projects",
+    "href": "api/kgl.html#setup-competition-projects",
+    "title": "kgl",
+    "section": "Setup competition projects",
+    "text": "Setup competition projects\n\napi = import_kaggle()\ncomps = api.competitions_list()\ncomp = comps[0]\ncomp.title, comp.url.split(\"/\")[-1]\n\n('AI Mathematical Olympiad - Progress Prize 2',\n 'ai-mathematical-olympiad-progress-prize-2')\n\n\n\nlen(\"equity-post-HCT-survival-prediction  \")\n\n37\n\n\n\nsource\n\ndisp_comp\n\n disp_comp (comp)\n\n\njoinedkey = attrkey(\"userHasEntered\")\n\n\ncomps.sort(key=joinedkey)\nactive, entered = (list(y) for x,y in it.groupby(comps, lambda x: x.userHasEntered))\n\n\nsource\n\n\nget_competitions\n\n get_competitions ()\n\n\nget_competitions()\n\n([https://www.kaggle.com/competitions/ai-mathematical-olympiad-progress-prize-2,\n  https://www.kaggle.com/competitions/konwinski-prize,\n  https://www.kaggle.com/competitions/llms-you-cant-please-them-all,\n  https://www.kaggle.com/competitions/fide-google-efficiency-chess-ai-challenge,\n  https://www.kaggle.com/competitions/lux-ai-season-3,\n  https://www.kaggle.com/competitions/titanic,\n  https://www.kaggle.com/competitions/home-data-for-ml-course,\n  https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques,\n  https://www.kaggle.com/competitions/spaceship-titanic,\n  https://www.kaggle.com/competitions/digit-recognizer,\n  https://www.kaggle.com/competitions/nlp-getting-started,\n  https://www.kaggle.com/competitions/connectx,\n  https://www.kaggle.com/competitions/gan-getting-started,\n  https://www.kaggle.com/competitions/llm-classification-finetuning,\n  https://www.kaggle.com/competitions/tpu-getting-started,\n  https://www.kaggle.com/competitions/contradictory-my-dear-watson],\n [https://www.kaggle.com/competitions/equity-post-HCT-survival-predictions,\n  https://www.kaggle.com/competitions/playground-series-s5e2,\n  https://www.kaggle.com/competitions/store-sales-time-series-forecasting,\n  https://www.kaggle.com/competitions/jane-street-real-time-market-data-forecasting])\n\n\n\nsource\n\n\nkgl_list\n\n kgl_list ()\n\nList kaggle competitions\n\nprint(kgl_list())\n\nJoined:\n  1   equity-post-HCT-survival-predictions     CIBMTR - Equity in post-HCT Survival Pre\n  2   playground-series-s5e2                   Backpack Prediction Challenge\n  3   store-sales-time-series-forecasting      Store Sales - Time Series Forecasting\n  4   jane-street-real-time-market-data-foreca Jane Street Real-Time Market Data Foreca\nActive:\n  5   ai-mathematical-olympiad-progress-prize- AI Mathematical Olympiad - Progress Priz\n  6   konwinski-prize                          Konwinski Prize\n  7   llms-you-cant-please-them-all            LLMs - You Can't Please Them All\n  8   fide-google-efficiency-chess-ai-challeng FIDE & Google Efficient Chess AI Challen\n  9   lux-ai-season-3                          NeurIPS 2024 - Lux AI Season 3\n  10  titanic                                  Titanic - Machine Learning from Disaster\n  11  home-data-for-ml-course                  Housing Prices Competition for Kaggle Le\n  12  house-prices-advanced-regression-techniq House Prices - Advanced Regression Techn\n  13  spaceship-titanic                        Spaceship Titanic\n  14  digit-recognizer                         Digit Recognizer\n  15  nlp-getting-started                      Natural Language Processing with Disaste\n  16  connectx                                 Connect X\n  17  gan-getting-started                      I’m Something of a Painter Myself\n  18  llm-classification-finetuning            LLM Classification Finetuning\n  19  tpu-getting-started                      Petals to the Metal - Flower Classificat\n  20  contradictory-my-dear-watson             Contradictory, My Dear Watson\n\n\n\nsource\n\n\nmaybe_int\n\n maybe_int (x:str)\n\n\ncomp = comps[0]\n\n\ncomp.url\n\n'https://www.kaggle.com/competitions/ai-mathematical-olympiad-progress-prize-2'\n\n\n\ncomp.title\n\n'AI Mathematical Olympiad - Progress Prize 2'\n\n\n\nsource\n\n\nget_competition\n\n get_competition (n:str)\n\n\nsource\n\n\nkgl_new\n\n kgl_new (n:str, save_to:str)\n\nSetup nbdev environment for a kaggle competition\n\n\n\n\nType\nDetails\n\n\n\n\nn\nstr\ncompetition id or name\n\n\nsave_to\nstr\nproject name to use locally and for github\n\n\n\nlink",
+    "crumbs": [
+      "api",
+      "kgl"
+    ]
+  },
+  {
+    "objectID": "api/core.html",
+    "href": "api/core.html",
+    "title": "core",
+    "section": "",
+    "text": "source\n\npad\n\n pad (s:str, pad_to:int)\n\nPad s with spaces to the right\n\ntest_eq(pad(\"hello\", 37), 'hello                                ')\n\n\nsource\n\n\nattrkey\n\n attrkey (attr)\n\nCreate a function that fetches attr of its input\n\nsource\n\n\nstr_enumerate\n\n str_enumerate (lst:list, start:int=0)\n\nCreate aligned sequence of numbered strings for strings in lst\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nlst\nlist\n\n\n\n\nstart\nint\n0\nenumerate from what number\n\n\nReturns\nIterable\n\n\n\n\n\n\nsource\n\n\ncz\n\n cz (*funcs)\n\nCompose functions together\nExamples:\nFunction to compute number of digits in a decimal representation of a number:\n\ncz(str, len)(32)\n\n2",
+    "crumbs": [
+      "api",
+      "core"
+    ]
+  },
+  {
+    "objectID": "api/gh.html",
+    "href": "api/gh.html",
+    "title": "gh",
+    "section": "",
+    "text": "To use this module you need to setup GitHub personal access token, which is a secret code used to access your account.\nIf you don’t have one, click here to create one. You’ll be asked to enter a name – choose anything you like, for instance “oztools”. In “scopes” choose “repo”, “gist”, “notifications”, and “workflow”. Then clock “Generate Token” and copy the token. Then add it for example to your .bashrc as export GITHUB_TOKEN=\"&lt;your github token goes here&gt;\".\n\nwarn(\"hello\")\n\n/tmp/ipykernel_127020/502382720.py:1: UserWarning: hello\n  warn(\"hello\")\n\n\n\nsource\n\nget_token_and_username\n\n get_token_and_username ()\n\n\nimport oztools\n\n\noztools?\n\n\nType:        module\nString form: &lt;module 'oztools' from '/home/mu/nbdev/oztools/oztools/__init__.py'&gt;\nFile:        ~/nbdev/oztools/oztools/__init__.py\nDocstring:   &lt;no docstring&gt;\n\n\n\n\ngh_username\n\n'ozpau'\n\n\n\nsource\n\n\ngh_licenses\n\n gh_licenses ()\n\nList GitHub license templates\nTODO: It would be nice if @call_parse created not just a cli wrapper, but also a raw function\n\nsource\n\n\ngh_new_repo_fn\n\n gh_new_repo_fn (name, description, license, private)\n\n\nsource\n\n\ngh_new_repo\n\n gh_new_repo (name:str, description:str, license:str='Apache-2.0',\n              private:bool=False)\n\nCreate a new github repo and clone it\n\nsource\n\n\ncommit_and_push\n\n commit_and_push (repo:git.repo.base.Repo, msg:str)\n\n\n\n\n\nType\nDetails\n\n\n\n\nrepo\nRepo\nRepo to commit and push\n\n\nmsg\nstr\nCommit message\n\n\n\n\n#gh_new_repo(\"cadlab\", \"CAD tools for Jupyter notebooks\")\n\n\nPath().cwd()\n\nPath('/home/mu/nbdev/oztools/nbs/api')\n\n\n\n#from nbdev.cli import *\n\n\n#nbdev_new()\n\n\n#api.repos.list_for_org(\"\")\n\n\ngh_repo = api.repos.get(\"ozpau.github.io\")\n\n\nlocal_repo = Repo('../..')\n\n\n#head = local_repo.create_head('gh-pages')\n#local_repo.git.push('--set-upstream', 'origin', head)\n\n\nsource\n\n\nadd_new_branch\n\n add_new_branch (repo:git.repo.base.Repo, branch_name:str)\n\nCreate new branch and push it to upstream\nNote that we need to split setting up branch in two parts so that if we decide to commit something after setting up gh-pages branch, it won’t interrupt page deployment.\n\nsource\n\n\nsetup_pages_branch_location\n\n setup_pages_branch_location (local_repo:git.repo.base.Repo,\n                              repo_name:str)\n\n\nsource\n\n\nsetup_pages_branch\n\n setup_pages_branch (local_repo:git.repo.base.Repo, repo_name:str)",
+    "crumbs": [
+      "api",
+      "gh"
+    ]
+  }
+]
