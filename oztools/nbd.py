@@ -9,7 +9,7 @@ __all__ = ['make_things_pretty', 'nbd_new_fn', 'nbd_new', 'new_notebook_template
 from pathlib import Path
 from fastcore.all import *
 import itertools as it
-import os
+import os, time
 from ghapi.all import *
 
 import configparser
@@ -43,15 +43,22 @@ def make_things_pretty():
 def nbd_new_fn(name:str, description:str, license:str="Apache-2.0", private:bool=False):
     "Create a new nbdev project and setup github repo for it"
     gh_repo, local_repo = gh_new_repo_fn(name, description, license, private)
-    setup_pages_branch(local_repo, gh_repo.name)
+    # this one makes github run CI twice (not nice)
+    #setup_pages_branch(local_repo, gh_repo.name)
     os.chdir(gh_repo.name)
-    subprocess.run(["nbdev_new"])
+    subprocess.run(["nbdev_new"]) # TODO: use .__wrapped__ property to extract original function
     subprocess.run(["nbdev_install_hooks"])
     make_things_pretty()
     subprocess.run(["nbdev_prepare"])
     subprocess.run(["nbdev_clean"])
-    subprocess.run(["pip", "install", "-e", ".[dev]"])
+    # Hopefully using pip + some sleep would be enough for github to be ready
+    # to enable pages branch
     commit_and_push(local_repo, "Initial commit")
+    subprocess.run(["pip", "install", "-e", ".[dev]"])
+    print("Waiting for the github to finish build before enabling pages")
+    print("Feel free to start working on the project")
+    # TODO: maybe check github api if build is ready
+    time.sleep(10)
     setup_pages_branch_location(local_repo, gh_repo.name)
 
 # %% ../nbs/api/02_nbd.ipynb 7
