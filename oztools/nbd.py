@@ -4,7 +4,7 @@
 
 # %% auto 0
 __all__ = ['make_things_pretty', 'nbd_new_fn', 'nbd_new', 'new_notebook_template', 'zero_pad', 'nbd_add',
-           'get_directories_recursive', 'watch_recursive', 'inotify_debounce', 'nbd_watch']
+           'get_directories_recursive', 'watch_new_directories', 'inotify_watch', 'nbd_watch']
 
 # %% ../nbs/api/02_nbd.ipynb 3
 from pathlib import Path
@@ -136,46 +136,47 @@ def nbd_add(name:str, description:str,
 
 # %% ../nbs/api/02_nbd.ipynb 17
 def get_directories_recursive(path: Path):
-    if path.is_dir():
-        yield path
-        for child in path.iterdir(): yield from get_directories_recursive(child)
-
-# %% ../nbs/api/02_nbd.ipynb 19
-def watch_recursive(path: Path, sync_timeout=1) -> AsyncGenerator[Event, None]:
-    mask = Mask.CREATE | Mask.MODIFY
-    with Inotify(sync_timeout=sync_timeout) as inotify:
-        for directory in get_directories_recursive(path): inotify.add_watch(directory, mask)
-        for event in inotify:
-            if Mask.CREATE in event.mask and event.path is not None and event.path.is_dir():
-                for directory in get_directories_recursive(event.path): inotify.add_watch(directory, mask)
-            if event.mask & mask: yield event
+    return (Path(d) for d,_,_ in os.walk(path))
 
 # %% ../nbs/api/02_nbd.ipynb 20
-def inotify_debounce(path, debounce_interval=1):
-    combined_event = []
-    last_event_time = None
-
-    while True:
-        # NOTE: this is not busy waiting because watch_recursive acts as a sleep function
-        # This process only wakes up either every debounce interval or when directory events happen
-        for event in watch_recursive(path, debounce_interval):
-            current_time = time.time()
-    
-            if last_event_time is None or (current_time - last_event_time) <= debounce_interval:
-                combined_event.append(event)
-            else:
-                if combined_event:
-                    yield combined_event
-                    combined_event = [event]
-            last_event_time = current_time
-
-        if combined_event:
-            yield combined_event
-            combined_event = []
+def watch_new_directories(inotify, event):
+    if Mask.CREATE in event.mask and event.path is not None and event.path.is_dir():
+        for directory in get_directories_recursive(event.path): inotify.add_watch(directory, mask)
 
 # %% ../nbs/api/02_nbd.ipynb 21
+def inotify_watch(path, debounce_interval=0.5):
+    mask = Mask.CREATE | Mask.MODIFY
+    inotify = Inotify()
+    for directory in get_directories_recursive(path): inotify.add_watch(directory, mask)
+
+    combined_event = []
+    def process_event(event):
+        watch_new_directories(inotify, event)
+        if not event.mask & mask: return False
+        combined_event.append(event)
+        return True
+
+    while True:
+        inotify.sync_timeout=-1 # Watch forever
+        for event in inotify:
+            if not process_event(event): continue
+
+            inotify.sync_timeout = debounce_interval
+            for event_seq in inotify:
+                if not process_event(event): continue
+
+            # No more events seen in sync_timeout: yield events seen in this event sequence
+            if combined_event:
+                yield combined_event
+                combined_event = []
+
+    print("Done")
+    # Will never be called, but let's keep it for good measure
+    inotify.close()
+
+# %% ../nbs/api/02_nbd.ipynb 22
 def nbd_watch():
     "Watch `nbs` folder and automatically run `nbdev_export` on file change"
-    for el in inotify_debounce(Path('nbs')):
+    for el in inotify_watch(Path('nbs')):
         print(f"[{datetime.now()}] {el[0].name}")
         subprocess.run(["nbdev_export"])
