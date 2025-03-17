@@ -42,7 +42,7 @@ def get_token_and_username():
 token, gh_username = get_token_and_username()
 api = GhApi(owner=gh_username, token=token)
 
-# %% ../nbs/api/01_gh.ipynb 11
+# %% ../nbs/api/01_gh.ipynb 14
 @call_parse
 def gh_licenses():
     "List GitHub license templates"
@@ -50,19 +50,19 @@ def gh_licenses():
     #return l.attrgot("spdx_id")
     return "\n".join(l.map(lambda x: f"{pad(x['spdx_id'],16)}{pad(x['name'],42)}"))
 
-# %% ../nbs/api/01_gh.ipynb 13
+# %% ../nbs/api/01_gh.ipynb 16
 def gh_new_repo_fn(name, description, license, private):
     gh_repo = api.repos.create_for_authenticated_user(name, description, private=private, license_template=license)
     local_repo = Repo.clone_from(gh_repo.ssh_url, gh_repo.name)
     return gh_repo, local_repo
 
-# %% ../nbs/api/01_gh.ipynb 14
+# %% ../nbs/api/01_gh.ipynb 17
 @call_parse
 def gh_new_repo(name:str, description:str, license:str="Apache-2.0", private:bool=False):
     "Create a new github repo and clone it"
     gh_new_repo_fn(name, description, license, private)
 
-# %% ../nbs/api/01_gh.ipynb 15
+# %% ../nbs/api/01_gh.ipynb 18
 def commit_and_push(repo: Repo, # Repo to commit and push
                     msg: str # Commit message
                    ):
@@ -71,13 +71,13 @@ def commit_and_push(repo: Repo, # Repo to commit and push
     origin = repo.remote(name='origin')
     origin.push()
 
-# %% ../nbs/api/01_gh.ipynb 24
+# %% ../nbs/api/01_gh.ipynb 27
 def add_new_branch(repo: Repo, branch_name: str):
     "Create new branch and push it to upstream"
     head = repo.create_head(branch_name)
     repo.git.push('--set-upstream', 'origin', head)
 
-# %% ../nbs/api/01_gh.ipynb 26
+# %% ../nbs/api/01_gh.ipynb 29
 def setup_pages_branch(local_repo: Repo, repo_name: str):
     add_new_branch(local_repo, 'gh-pages')
 
