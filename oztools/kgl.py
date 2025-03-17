@@ -43,7 +43,7 @@ def get_competitions():
     api = import_kaggle()
     comps = api.competitions_list()
     
-    joinedkey = attrkey("userHasEntered")
+    joinedkey = attrkey("user_has_entered")
     comps.sort(key=joinedkey)
     active, entered = (list(y) for x,y in it.groupby(comps, joinedkey))
     return active, entered

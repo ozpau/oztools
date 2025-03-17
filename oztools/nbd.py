@@ -31,7 +31,6 @@ import importlib.resources as res
 import asyncio
 from asyncinotify import Inotify, Event, Mask
 from pathlib import Path
-from typing import Generator, AsyncGenerator
 from datetime import datetime
 
 # %% ../nbs/api/02_nbd.ipynb 5
@@ -144,9 +143,8 @@ def watch_new_directories(inotify, event):
         for directory in get_directories_recursive(event.path): inotify.add_watch(directory, mask)
 
 # %% ../nbs/api/02_nbd.ipynb 21
-def inotify_watch(path, debounce_interval=0.5):
+def _inotify_watch(inotify, path, debounce_interval):
     mask = Mask.CREATE | Mask.MODIFY
-    inotify = Inotify()
     for directory in get_directories_recursive(path): inotify.add_watch(directory, mask)
 
     combined_event = []
@@ -170,11 +168,12 @@ def inotify_watch(path, debounce_interval=0.5):
                 yield combined_event
                 combined_event = []
 
-    print("Done")
-    # Will never be called, but let's keep it for good measure
-    inotify.close()
-
 # %% ../nbs/api/02_nbd.ipynb 22
+def inotify_watch(path, debounce_interval=0.5):
+    with Inotify() as inotify:
+        yield from _inotify_watch(inotify, path, debounce_interval)
+
+# %% ../nbs/api/02_nbd.ipynb 23
 def nbd_watch():
     "Watch `nbs` folder and automatically run `nbdev_export` on file change"
     for el in inotify_watch(Path('nbs')):
