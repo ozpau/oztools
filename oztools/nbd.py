@@ -4,8 +4,7 @@
 
 # %% auto 0
 __all__ = ['make_things_pretty', 'nbd_new_fn', 'nbd_new', 'new_notebook_template', 'zero_pad', 'nbd_add',
-           'get_directories_recursive', 'watch_recursive', 'debounce', 'inotify_debounce', 'nbd_watch_async',
-           'nbd_watch']
+           'get_directories_recursive', 'watch_recursive', 'inotify_debounce', 'nbd_watch']
 
 # %% ../nbs/api/02_nbd.ipynb 3
 from pathlib import Path
@@ -141,54 +140,25 @@ def get_directories_recursive(path: Path):
         yield path
         for child in path.iterdir(): yield from get_directories_recursive(child)
 
-# %% ../nbs/api/02_nbd.ipynb 22
-async def watch_recursive(path: Path, sync_timeout=None) -> AsyncGenerator[Event, None]:
+# %% ../nbs/api/02_nbd.ipynb 19
+def watch_recursive(path: Path, sync_timeout=1) -> AsyncGenerator[Event, None]:
     mask = Mask.CREATE | Mask.MODIFY
     with Inotify(sync_timeout=sync_timeout) as inotify:
-        for directory in get_directories_recursive(path):
-            inotify.add_watch(directory, mask)
-        async for event in inotify:
+        for directory in get_directories_recursive(path): inotify.add_watch(directory, mask)
+        for event in inotify:
             if Mask.CREATE in event.mask and event.path is not None and event.path.is_dir():
-                for directory in get_directories_recursive(event.path):
-                    #print(f'EVENT: watching {directory}')
-                    inotify.add_watch(directory, mask)
+                for directory in get_directories_recursive(event.path): inotify.add_watch(directory, mask)
+            if event.mask & mask: yield event
 
-            if event.mask & mask:
-                yield event
-
-# %% ../nbs/api/02_nbd.ipynb 23
-async def debounce(events: AsyncGenerator[Event, None], # event generator
-                   debounce_interval = 0.5 # in seconds
-                  ) -> AsyncGenerator[Event, None]:
-    combined_event = []
-    last_event_time = None
-
-    async for event in events:
-        current_time = time.time()
-
-        if last_event_time is None or (current_time - last_event_time) <= debounce_interval:
-            combined_event.append(event)
-        else:
-            if combined_event:
-                yield combined_event
-                combined_event = [event]
-        last_event_time = current_time
-
-    print("This will never run for inotify")
-    if combined_event:
-        yield combined_event
-
-# %% ../nbs/api/02_nbd.ipynb 29
-async def inotify_debounce(path, debounce_interval=1):
-    print("inotify_debounce")
+# %% ../nbs/api/02_nbd.ipynb 20
+def inotify_debounce(path, debounce_interval=1):
     combined_event = []
     last_event_time = None
 
     while True:
         # NOTE: this is not busy waiting because watch_recursive acts as a sleep function
         # This process only wakes up either every debounce interval or when directory events happen
-        async for event in watch_recursive(path, debounce_interval):
-            print(event)
+        for event in watch_recursive(path, debounce_interval):
             current_time = time.time()
     
             if last_event_time is None or (current_time - last_event_time) <= debounce_interval:
@@ -198,19 +168,14 @@ async def inotify_debounce(path, debounce_interval=1):
                     yield combined_event
                     combined_event = [event]
             last_event_time = current_time
-    
-        print("This will never run for inotify")
+
         if combined_event:
             yield combined_event
+            combined_event = []
 
-# %% ../nbs/api/02_nbd.ipynb 30
-async def nbd_watch_async():
-    #async for el in debounce(watch_recursive(Path('nbs')), 1):
-    async for el in inotify_debounce(Path('nbs')):
-        print(f"[{datetime.now()}] {el[0].path}")
-        subprocess.run(["nbdev_export"])
-
-# %% ../nbs/api/02_nbd.ipynb 31
+# %% ../nbs/api/02_nbd.ipynb 21
 def nbd_watch():
     "Watch `nbs` folder and automatically run `nbdev_export` on file change"
-    asyncio.run(nbd_watch_async())
+    for el in inotify_debounce(Path('nbs')):
+        print(f"[{datetime.now()}] {el[0].name}")
+        subprocess.run(["nbdev_export"])
