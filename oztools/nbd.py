@@ -4,7 +4,8 @@
 
 # %% auto 0
 __all__ = ['make_things_pretty', 'nbd_new_fn', 'nbd_new', 'new_notebook_template', 'zero_pad', 'nbd_add',
-           'get_directories_recursive', 'watch_new_directories', 'inotify_watch', 'nbd_watch']
+           'get_directories_recursive', 'watch_new_directories', 'extract_exports', 'get_hash', 'setup_tracking',
+           'inotify_watch', 'get_files_updated', 'anything_updated', 'nbd_watch']
 
 # %% ../nbs/api/02_nbd.ipynb 3
 from pathlib import Path
@@ -32,6 +33,8 @@ import asyncio
 from asyncinotify import Inotify, Event, Mask
 from pathlib import Path
 from datetime import datetime
+
+import hashlib
 
 # %% ../nbs/api/02_nbd.ipynb 5
 def make_things_pretty():
@@ -143,8 +146,33 @@ def watch_new_directories(inotify, event):
         for directory in get_directories_recursive(event.path): inotify.add_watch(directory, mask)
 
 # %% ../nbs/api/02_nbd.ipynb 21
+def extract_exports(file):
+    return '\n'.join([
+        ''.join(x['source']) for x in file.read_json()['cells']
+        if x['cell_type'] == 'code' and 'export' in ''.join(x['source'])
+    ])
+
+# %% ../nbs/api/02_nbd.ipynb 22
+def get_hash(s):
+    h_func = hashlib.sha256(s.encode("utf-8"))
+    return h_func.digest()
+
+# %% ../nbs/api/02_nbd.ipynb 24
+def setup_tracking(path):
+    files = dict()
+    for d in get_directories_recursive(path):
+        if d.name == '.ipynb_checkpoints':
+            continue
+        for f in d.ls():
+            if not re.match(r'^(?!\.\~).+\.ipynb$', f.name):
+                continue
+            files[f] = get_hash(extract_exports(f))
+    return files
+
+# %% ../nbs/api/02_nbd.ipynb 33
 def _inotify_watch(inotify, path, debounce_interval):
-    mask = Mask.CREATE | Mask.MODIFY
+    mask = (Mask.CREATE | Mask.MODIFY | Mask.MOVE | Mask.CLOSE_WRITE
+            | Mask.DELETE | Mask.DELETE_SELF | Mask.ATTRIB)
     for directory in get_directories_recursive(path): inotify.add_watch(directory, mask)
 
     combined_event = []
@@ -168,14 +196,44 @@ def _inotify_watch(inotify, path, debounce_interval):
                 yield combined_event
                 combined_event = []
 
-# %% ../nbs/api/02_nbd.ipynb 22
+# %% ../nbs/api/02_nbd.ipynb 34
 def inotify_watch(path, debounce_interval=0.5):
     with Inotify() as inotify:
         yield from _inotify_watch(inotify, path, debounce_interval)
 
-# %% ../nbs/api/02_nbd.ipynb 23
+# %% ../nbs/api/02_nbd.ipynb 39
+def get_files_updated(events):
+    unique = set((e.watch.path, e.name.name) for e in events)
+    ipynb = ((path, re.match(r'\.\~(.*.ipynb)', name)) for path, name in unique)
+    ipynb = [path/name.group(1) for path, name in ipynb if name]
+    return ipynb
+
+# %% ../nbs/api/02_nbd.ipynb 42
+def anything_updated(tracked_files, events):
+    updated = []
+    for filename in get_files_updated(events):
+        new_hash = get_hash(extract_exports(filename))
+        if new_hash != tracked_files[filename]:
+            updated.append(filename)
+            tracked_files[filename] = new_hash
+    return updated
+
+# %% ../nbs/api/02_nbd.ipynb 43
 def nbd_watch():
     "Watch `nbs` folder and automatically run `nbdev_export` on file change"
-    for el in inotify_watch(Path('nbs')):
-        print(f"[{datetime.now()}] {el[0].name}")
+
+    path = Path('nbs')
+    tracked_files = setup_tracking(path)
+
+    for events in inotify_watch(path):
+        # filter events
+        # - ignore temporary file saves (this happens automatically, and we don't
+        #   want to refresh anything unless user explicitly saves a file)
+        if len(events) < 13: continue
+
+        updated = anything_updated(tracked_files, events)
+        if not updated: continue
+
+        #for e in events: print(e)
+        print(f"[{datetime.now()}] {' '.join(p.relative_to(Path('nbs')).as_posix() for p in updated)}")
         subprocess.run(["nbdev_export"])
