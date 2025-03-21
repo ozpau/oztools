@@ -1,0 +1,141 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "oztools",
+    "section": "",
+    "text": "This file will become your README and also the index of your documentation.",
+    "crumbs": [
+      "oztools"
+    ]
+  },
+  {
+    "objectID": "index.html#developer-guide",
+    "href": "index.html#developer-guide",
+    "title": "oztools",
+    "section": "Developer Guide",
+    "text": "Developer Guide\nIf you are new to using nbdev here are some useful pointers to get you started.\n\nInstall oztools in Development mode\n# make sure oztools package is installed in development mode\n$ pip install -e .\n\n# make changes under nbs/ directory\n# ...\n\n# compile to have changes apply to oztools\n$ nbdev_prepare",
+    "crumbs": [
+      "oztools"
+    ]
+  },
+  {
+    "objectID": "index.html#usage",
+    "href": "index.html#usage",
+    "title": "oztools",
+    "section": "Usage",
+    "text": "Usage\n\nInstallation\nInstall latest from the GitHub repository:\n$ pip install git+https://github.com/ozellpaukert/oztools.git\nor from conda\n$ conda install -c ozellpaukert oztools\nor from pypi\n$ pip install oztools\n\n\nDocumentation\nDocumentation can be found hosted on this GitHub repository’s pages. Additionally you can find package manager specific guidelines on conda and pypi respectively.",
+    "crumbs": [
+      "oztools"
+    ]
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "oztools",
+    "section": "How to use",
+    "text": "How to use\nFill me in please! Don’t forget code examples:\n\n1+1\n\n2",
+    "crumbs": [
+      "oztools"
+    ]
+  },
+  {
+    "objectID": "api/kgl.html",
+    "href": "api/kgl.html",
+    "title": "kgl",
+    "section": "",
+    "text": "This module requires kaggle API token in order to work. See here for info on how to setup that.",
+    "crumbs": [
+      "api",
+      "kgl"
+    ]
+  },
+  {
+    "objectID": "api/kgl.html#competition-utils",
+    "href": "api/kgl.html#competition-utils",
+    "title": "kgl",
+    "section": "Competition utils",
+    "text": "Competition utils\nModified version of setup_comp from fastkaggle. I like to put my data into data folders so it’s easier to mask them in version control.\n\nsource\n\nsetup_comp\n\n setup_comp (competition, install='')\n\nGet a path to data for competition, downloading it if needed",
+    "crumbs": [
+      "api",
+      "kgl"
+    ]
+  },
+  {
+    "objectID": "api/kgl.html#setup-competition-projects",
+    "href": "api/kgl.html#setup-competition-projects",
+    "title": "kgl",
+    "section": "Setup competition projects",
+    "text": "Setup competition projects\n\napi = import_kaggle()\ncomps = api.competitions_list()\ncomp = comps[0]\ncomp.title, comp.url.split(\"/\")[-1]\n\n('AI Mathematical Olympiad - Progress Prize 2',\n 'ai-mathematical-olympiad-progress-prize-2')\n\n\n\nlen(\"equity-post-HCT-survival-prediction  \")\n\n37\n\n\n\nsource\n\ndisp_comp\n\n disp_comp (comp)\n\n\njoinedkey = attrkey(\"user_has_entered\")\n\n\ncomps.sort(key=joinedkey)\nactive, entered = (list(y) for x,y in it.groupby(comps, lambda x: x.user_has_entered))\n\n\nsource\n\n\nget_competitions\n\n get_competitions ()\n\n\nactive, entered = get_competitions()\nactive[:1], entered[:1]\n\n([{\"id\": 86023, \"ref\": \"https://www.kaggle.com/competitions/ai-mathematical-olympiad-progress-prize-2\", \"title\": \"AI Mathematical Olympiad - Progress Prize 2\", \"url\": \"https://www.kaggle.com/competitions/ai-mathematical-olympiad-progress-prize-2\", \"description\": \"Solve national-level math challenges using artificial intelligence models\", \"organizationName\": \"AI|MO\", \"organizationRef\": \"\", \"category\": \"Featured\", \"reward\": \"2,117,152 Usd\", \"tags\": [{\"ref\": \"nlp\", \"name\": \"nlp\", \"description\": \"Natural Language Processing gives a computer program the ability to extract meaning human language. Applications include sentiment analysis, translation, and speech recognition.\", \"fullPath\": \"analysis &gt; nlp\", \"competitionCount\": 89, \"datasetCount\": 4512, \"scriptCount\": 8533, \"totalCount\": 13134}, {\"ref\": \"mathematics\", \"name\": \"mathematics\", \"description\": \"\", \"fullPath\": \"subject &gt; mathematics\", \"competitionCount\": 4, \"datasetCount\": 120, \"scriptCount\": 179, \"totalCount\": 303}, {\"ref\": \"accuracy score\", \"name\": \"accuracy score\", \"description\": \"Accuracy classification score. See https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html\", \"fullPath\": \"\", \"competitionCount\": 0, \"datasetCount\": 0, \"scriptCount\": 0, \"totalCount\": 0}], \"deadline\": \"2025-04-01T23:59:00.000Z\", \"kernelCount\": 0, \"teamCount\": 2162, \"userHasEntered\": false, \"userRank\": 0, \"mergerDeadline\": \"2025-03-25T23:59:00.000Z\", \"newEntrantDeadline\": \"2025-03-25T23:59:00.000Z\", \"enabledDate\": \"2024-10-17T15:00:47.587Z\", \"maxDailySubmissions\": 1, \"maxTeamSize\": 7, \"evaluationMetric\": \"Accuracy Score\", \"awardsPoints\": true, \"isKernelsSubmissionsOnly\": true, \"submissionsDisabled\": false}],\n [{\"id\": 91714, \"ref\": \"https://www.kaggle.com/competitions/playground-series-s5e3\", \"title\": \"Binary Prediction with a Rainfall Dataset\", \"url\": \"https://www.kaggle.com/competitions/playground-series-s5e3\", \"description\": \"Playground Series - Season 5, Episode 3\", \"organizationName\": \"Kaggle\", \"organizationRef\": \"\", \"category\": \"Playground\", \"reward\": \"Swag\", \"tags\": [{\"ref\": \"weather and climate\", \"name\": \"weather and climate\", \"description\": \"Weather datasets and kernels come in all wind speeds and directions. You have weather data about hurricanes and other inclement phenomena, hourly readings, and general weather for various cities.\", \"fullPath\": \"subject &gt; earth and nature &gt; environment &gt; weather and climate\", \"competitionCount\": 13, \"datasetCount\": 1319, \"scriptCount\": 624, \"totalCount\": 1956}, {\"ref\": \"beginner\", \"name\": \"beginner\", \"description\": \"New to data science? Explore tips, tricks, and beginner friendly work from other Kagglers.\", \"fullPath\": \"audience &gt; beginner\", \"competitionCount\": 12902, \"datasetCount\": 8233, \"scriptCount\": 42012, \"totalCount\": 63147}, {\"ref\": \"time series analysis\", \"name\": \"time series analysis\", \"description\": \"\", \"fullPath\": \"technique &gt; time series analysis\", \"competitionCount\": 479, \"datasetCount\": 2663, \"scriptCount\": 3716, \"totalCount\": 6858}, {\"ref\": \"tabular\", \"name\": \"tabular\", \"description\": \"\", \"fullPath\": \"data type &gt; tabular\", \"competitionCount\": 13566, \"datasetCount\": 11739, \"scriptCount\": 7106, \"totalCount\": 32411}, {\"ref\": \"roc auc score\", \"name\": \"roc auc score\", \"description\": \"Compute Area Under the Receiver Operating Characteristic Curve (ROC AUC)     from prediction scores. See https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html\", \"fullPath\": \"\", \"competitionCount\": 0, \"datasetCount\": 0, \"scriptCount\": 0, \"totalCount\": 0}], \"deadline\": \"2025-03-31T23:59:00.000Z\", \"kernelCount\": 0, \"teamCount\": 2734, \"userHasEntered\": true, \"userRank\": 2040, \"mergerDeadline\": \"2025-03-31T23:59:00.000Z\", \"newEntrantDeadline\": null, \"enabledDate\": \"2025-03-01T00:01:34.057Z\", \"maxDailySubmissions\": 5, \"maxTeamSize\": 3, \"evaluationMetric\": \"Roc Auc Score\", \"awardsPoints\": false, \"isKernelsSubmissionsOnly\": false, \"submissionsDisabled\": false}])\n\n\n\nsource\n\n\nkgl_list\n\n kgl_list ()\n\nList kaggle competitions\n\nprint(kgl_list())\n\nJoined:\n  1   playground-series-s5e3                   Binary Prediction with a Rainfall Datase\n  2   store-sales-time-series-forecasting      Store Sales - Time Series Forecasting\nActive:\n  3   ai-mathematical-olympiad-progress-prize- AI Mathematical Olympiad - Progress Priz\n  4   stanford-rna-3d-folding                  Stanford RNA 3D Folding\n  5   byu-locating-bacterial-flagellar-motors- BYU - Locating Bacterial Flagellar Motor\n  6   march-machine-learning-mania-2025        March Machine Learning Mania 2025\n  7   drawing-with-llms                        Drawing with LLMs\n  8   birdclef-2025                            BirdCLEF+ 2025\n  9   titanic                                  Titanic - Machine Learning from Disaster\n  10  home-data-for-ml-course                  Housing Prices Competition for Kaggle Le\n  11  house-prices-advanced-regression-techniq House Prices - Advanced Regression Techn\n  12  spaceship-titanic                        Spaceship Titanic\n  13  digit-recognizer                         Digit Recognizer\n  14  nlp-getting-started                      Natural Language Processing with Disaste\n  15  connectx                                 Connect X\n  16  llm-classification-finetuning            LLM Classification Finetuning\n  17  gan-getting-started                      I’m Something of a Painter Myself\n  18  contradictory-my-dear-watson             Contradictory, My Dear Watson\n  19  tpu-getting-started                      Petals to the Metal - Flower Classificat\n  20  konwinski-prize                          Konwinski Prize\n\n\n\nsource\n\n\nmaybe_int\n\n maybe_int (x:str)\n\n\ncomp = comps[0]\n\n\ncomp.url\n\n'https://www.kaggle.com/competitions/ai-mathematical-olympiad-progress-prize-2'\n\n\n\ncomp.title\n\n'AI Mathematical Olympiad - Progress Prize 2'\n\n\n\nsource\n\n\nget_competition\n\n get_competition (n:str)\n\n\nsource\n\n\nkgl_new\n\n kgl_new (n:str, save_to:str)\n\nSetup nbdev environment for a kaggle competition\n\n\n\n\nType\nDetails\n\n\n\n\nn\nstr\ncompetition id or name\n\n\nsave_to\nstr\nproject name to use locally and for github",
+    "crumbs": [
+      "api",
+      "kgl"
+    ]
+  },
+  {
+    "objectID": "api/kgl.html#adopted-from-fastkaggle",
+    "href": "api/kgl.html#adopted-from-fastkaggle",
+    "title": "kgl",
+    "section": "Adopted from fastkaggle",
+    "text": "Adopted from fastkaggle\nChanges: - Allow uploading current project even if it’s not on pip - Kaggle API changed since 3 years ago, so had to fix code\n\nsource\n\ncreate_lib_dataset\n\n create_lib_dataset (ds_name, lib_source, lib_path, username,\n                     clear_after=False)\n\nFor each library, create or update a kaggle dataset with the latest version\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nds_name\n\n\n\n\n\nlib_source\n\n\n\n\n\nlib_path\n\n\nLocal path to dl/create dataset\n\n\nusername\n\n\nYou username\n\n\nclear_after\nbool\nFalse\nDelete local copies after sync with kaggle?",
+    "crumbs": [
+      "api",
+      "kgl"
+    ]
+  },
+  {
+    "objectID": "api/nbd.html",
+    "href": "api/nbd.html",
+    "title": "nbd",
+    "section": "",
+    "text": "path = Path(\"../..\")\nPath.BASE_PATH = path\nsource",
+    "crumbs": [
+      "api",
+      "nbd"
+    ]
+  },
+  {
+    "objectID": "api/nbd.html#nbd_watch",
+    "href": "api/nbd.html#nbd_watch",
+    "title": "nbd",
+    "section": "nbd_watch",
+    "text": "nbd_watch\nAdapted from https://github.com/ProCern/asyncinotify/blob/master/examples/recursivewatch.py\n\nsource\n\nget_directories_recursive\n\n get_directories_recursive (path:pathlib.Path)\n\n\nlist(get_directories_recursive(Path('.')))\n\n[Path('.'),\n Path('.ipynb_checkpoints'),\n Path('02_nbd'),\n Path('02_nbd/favicons'),\n Path('02_nbd/favicons/arlantr'),\n Path('02_nbd/favicons/food-ocal'),\n Path('02_nbd/favicons/food-ocal/vegetable'),\n Path('02_nbd/favicons/food-ocal/treat'),\n Path('02_nbd/favicons/food-ocal/pasta'),\n Path('02_nbd/favicons/food-ocal/fruit'),\n Path('02_nbd/favicons/food-ocal/drink'),\n Path('02_nbd/favicons/food-ocal/dairy'),\n Path('02_nbd/favicons/food-ocal/meat')]\n\n\nAlgorithm: 1. Watch forever until an event happens. 2. After that, watch for 1s. If no more events fire, yield an event. Go back to step 1. 3. If more events fire in that 1s, record those events and go back to step 2.\nExtra features: 1. If new directories are added, mark them for watching. 2. Skip events we are not interested in\n\nsource\n\n\nwatch_new_directories\n\n watch_new_directories (inotify, event)\n\n\nsource\n\n\nextract_exports\n\n extract_exports (file)\n\n\nsource\n\n\nget_hash\n\n get_hash (s)\n\n\nget_hash(\"hello, world!\")\n\nb'h\\xe6V\\xb2Q\\xe6~\\x83X\\xbe\\xf8H:\\xb0\\xd5\\x1cf\\x19\\xf3\\xe7\\xa1\\xa9\\xf0\\xe7X8\\xd4\\x1f\\xf3h\\xf7('\n\n\n\nsource\n\n\nsetup_tracking\n\n setup_tracking (path)\n\n\ntracked_files = setup_tracking(Path('.'))\n\n\nlist(get_directories_recursive(Path('.')))[1].name\n\n'.ipynb_checkpoints'\n\n\n\ntracked_files.keys()\n\ndict_keys([Path('00_core.ipynb'), Path('01_gh.ipynb'), Path('03_kgl.ipynb'), Path('02_nbd.ipynb'), Path('04_format.ipynb')])\n\n\n\ns = \"hello\"\n\n\ns.encode(\"utf-8\")\n\nb'hello'\n\n\n\nre.match(r'^(?!\\.\\~).+\\.ipynb$', '.~00_core.ipynb')\n\n\nf = list(get_directories_recursive(Path('.')))[0].ls()[0]\n\n\nprint('\\n'.join([''.join(x['source']) for x in f.read_json()['cells'] if x['cell_type'] == 'code' and 'export' in ''.join(x['source'])]))\n\n#| export\nfrom fastcore.all import *\n#| export\ndef pad(s: str, pad_to: int):\n    \"Pad `s` with spaces to the right\"\n    return s + \" \" * max(0, (pad_to - len(s)))\n#| export\ndef attrkey(attr):\n    \"Create a function that fetches `attr` of its input\"\n    return lambda x: getattr(x, attr)\n#| export\ndef str_enumerate(lst: list,\n                  start: int = 0 # enumerate from what number\n                 ) -&gt; Iterable[str]:\n    \"Create aligned sequence of numbered strings for strings in `lst`\"\n    return map(lambda x: f\"  {pad(str(x[0]),2)}  {x[1]}\", enumerate(lst, start))\n#| export\ndef cz(*funcs):\n    \"Compose functions together\"\n    def fn(x):\n        for fn in funcs:\n            x = fn(x)\n        return x\n    return fn\n#| hide\nimport nbdev; nbdev.nbdev_export()\n\n\n\nsource\n\n\ninotify_watch\n\n inotify_watch (path, debounce_interval=0.5)\n\n\ns = '.~04_core.ipynb'\ns.startswith('.~')\n\nTrue\n\n\n\nPath('/user/home/.~04_core.ipynb').name\n\n'.~04_core.ipynb'\n\n\nRight now, it seems the best way to figure out when user actually saves is to count number of events: - Saving file manually results in at least 13 events, while autosave only produces 9 events (sometimes 10).\n\nk = re.match(r'\\.\\~(.*.ipynb)', '.~04_core.ipynb')\nk.group(1)\n\n'04_core.ipynb'\n\n\n\nsource\n\n\nget_files_updated\n\n get_files_updated (events)\n\n\np = Path('nbs/api/02_nbd.ipynb')\np.parent\n\nPath('nbs/api')\n\n\n\np.relative_to(Path('nbs')).as_posix()\n\n'api/02_nbd.ipynb'\n\n\n\nsource\n\n\nanything_updated\n\n anything_updated (tracked_files, events)\n\n\nsource\n\n\nnbd_watch\n\n nbd_watch ()\n\nWatch nbs folder and automatically run nbdev_export on file change",
+    "crumbs": [
+      "api",
+      "nbd"
+    ]
+  },
+  {
+    "objectID": "api/core.html",
+    "href": "api/core.html",
+    "title": "core",
+    "section": "",
+    "text": "source\n\npad\n\n pad (s:str, pad_to:int)\n\nPad s with spaces to the right\n\ntest_eq(pad(\"hello\", 37), 'hello                                ')\n\n\nsource\n\n\nattrkey\n\n attrkey (attr)\n\nCreate a function that fetches attr of its input\n\nsource\n\n\nstr_enumerate\n\n str_enumerate (lst:list, start:int=0)\n\nCreate aligned sequence of numbered strings for strings in lst\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nlst\nlist\n\n\n\n\nstart\nint\n0\nenumerate from what number\n\n\nReturns\nIterable\n\n\n\n\n\n\nsource\n\n\ncz\n\n cz (*funcs)\n\nCompose functions together\nExamples:\nFunction to compute number of digits in a decimal representation of a number:\n\ncz(str, len)(32)\n\n2",
+    "crumbs": [
+      "api",
+      "core"
+    ]
+  },
+  {
+    "objectID": "api/format.html",
+    "href": "api/format.html",
+    "title": "format",
+    "section": "",
+    "text": "source\n\ninit_pygments\n\n init_pygments ()\n\nCall this at the beginning of the notebook\n\nsource\n\n\ncode_pygments\n\n code_pygments (c:str, language:str)\n\nDisplay code with syntax highlighting\n\nsource\n\n\ncode_markdown\n\n code_markdown (c:str, lang:str)\n\nExample:\n\nc = \"\"\"\n#include &lt;iostream&gt;\n\nint main() {\n  std::cout &lt;&lt; \"Hello, world!\"\n}\n\"\"\"\n\nUse pygments to make html piece:\n\ninit_pygments()\ncode_pygments(c, \"cpp\")\n\n\n\n\n#include &lt;iostream&gt;\n\nint main() {\n  std::cout &lt;&lt; \"Hello, world!\"\n}\n\n\n\nDisplay markdown:\n\ncode_markdown(c, \"cpp\")\n\n\n#include &lt;iostream&gt;\n\nint main() {\n  std::cout &lt;&lt; \"Hello, world!\"\n}\n\n\nInsert as an actual markdown cell:\n#include &lt;iostream&gt;\n\nint main() {\n    std::cout &lt;&lt; \"Hello, world!\"\n}",
+    "crumbs": [
+      "api",
+      "format"
+    ]
+  },
+  {
+    "objectID": "api/gh.html",
+    "href": "api/gh.html",
+    "title": "gh",
+    "section": "",
+    "text": "To use this module you need to setup GitHub personal access token, which is a secret code used to access your account.\nIf you don’t have one, click here to create one. You’ll be asked to enter a name – choose anything you like, for instance “oztools”. In “scopes” choose “repo”, “gist”, “notifications”, and “workflow”. Then clock “Generate Token” and copy the token. Then add it for example to your .bashrc as export GITHUB_TOKEN=\"&lt;your github token goes here&gt;\".\n\nwarn(\"hello\")\n\n/tmp/ipykernel_1295329/502382720.py:1: UserWarning: hello\n  warn(\"hello\")\n\n\n\nsource\n\nget_token_and_username\n\n get_token_and_username ()\n\n\nimport oztools\n\n\noztools?\n\n\nType:        module\nString form: &lt;module 'oztools' from '/home/mu/nbdev/oztools/oztools/__init__.py'&gt;\nFile:        ~/nbdev/oztools/oztools/__init__.py\nDocstring:   &lt;no docstring&gt;\n\n\n\n\ngh_username\n\n'ozpau'\n\n\n\nrepo = api.repos.get('make_llm')\n\n\napi.repos.get_latest_pages_build('make_llm')\n\n\n---------------------------------------------------------------------------\nHTTP404NotFoundError                      Traceback (most recent call last)\nCell In[16], line 1\n----&gt; 1 api.repos.get_latest_pages_build('make_llm')\n\nFile ~/python/venv/lib/python3.12/site-packages/ghapi/core.py:74, in _GhVerb.__call__(self, headers, *args, **kwargs)\n     71 for a,b in zip(args,flds): kwargs[b]=a\n     72 route_p,query_p,data_p = [{p:kwargs[p] for p in o if p in kwargs}\n     73                          for o in (self.route_ps,self.params,d)]\n---&gt; 74 return self.client(self.path, self.verb, headers=headers, decode=self.decode, route=route_p, query=query_p, data=data_p)\n\nFile ~/python/venv/lib/python3.12/site-packages/ghapi/core.py:133, in GhApi.__call__(self, path, verb, headers, route, query, data, timeout, decode)\n    131 return_json = ('json' in headers['Accept']) and (decode is True)\n    132 debug = self.debug if self.debug else print_summary if os.getenv('GHAPI_DEBUG') else None\n--&gt; 133 res,self.recv_hdrs = urlsend(path, verb, headers=headers or None, decode=decode, debug=debug, return_headers=True,\n    134                              route=route or None, query=query or None, data=data or None, return_json=return_json, timeout=timeout)\n    135 if 'X-RateLimit-Remaining' in self.recv_hdrs:\n    136     newlim = self.recv_hdrs['X-RateLimit-Remaining']\n\nFile ~/python/venv/lib/python3.12/site-packages/fastcore/net.py:221, in urlsend(url, verb, headers, decode, route, query, data, json_data, return_json, return_headers, debug, timeout)\n    218 if route and route.get('archive_format', None):\n    219     return urlread(req, decode=False, return_json=False, return_headers=return_headers, timeout=timeout)\n--&gt; 221 return urlread(req, decode=decode, return_json=return_json, return_headers=return_headers, timeout=timeout)\n\nFile ~/python/venv/lib/python3.12/site-packages/fastcore/net.py:122, in urlread(url, data, headers, decode, return_json, return_headers, timeout, **kwargs)\n    120     with urlopen(url, data=data, headers=headers, timeout=timeout, **kwargs) as u: res,hdrs = u.read(),u.headers\n    121 except HTTPError as e:\n--&gt; 122     if 400 &lt;= e.code &lt; 500: raise ExceptionsHTTP[e.code](e.url, e.hdrs, e.fp, msg=e.msg) from None\n    123     else: raise\n    125 if decode: res = res.decode()\n\nHTTP404NotFoundError: HTTP Error 404: Not Found\n====Error Body====\n{\n  \"message\": \"Not Found\",\n  \"documentation_url\": \"https://docs.github.com/rest/pages/pages#get-latest-pages-build\",\n  \"status\": \"404\"\n}\n\n\n\n\n\nrepo.branches_url\n\n'https://api.github.com/repos/ozpau/make_llm/branches{/branch}'\n\n\n\nsource\n\n\ngh_licenses\n\n gh_licenses ()\n\nList GitHub license templates\nTODO: It would be nice if @call_parse created not just a cli wrapper, but also a raw function\n\nsource\n\n\ngh_new_repo_fn\n\n gh_new_repo_fn (name, description, license, private)\n\n\nsource\n\n\ngh_new_repo\n\n gh_new_repo (name:str, description:str, license:str='Apache-2.0',\n              private:bool=False)\n\nCreate a new github repo and clone it\n\nsource\n\n\ncommit_and_push\n\n commit_and_push (repo:git.repo.base.Repo, msg:str)\n\n\n\n\n\nType\nDetails\n\n\n\n\nrepo\nRepo\nRepo to commit and push\n\n\nmsg\nstr\nCommit message\n\n\n\n\n#gh_new_repo(\"cadlab\", \"CAD tools for Jupyter notebooks\")\n\n\nPath().cwd()\n\nPath('/home/mu/nbdev/oztools/nbs/api')\n\n\n\n#from nbdev.cli import *\n\n\n#nbdev_new()\n\n\n#api.repos.list_for_org(\"\")\n\n\ngh_repo = api.repos.get(\"ozpau.github.io\")\n\n\nlocal_repo = Repo('../..')\n\n\n#head = local_repo.create_head('gh-pages')\n#local_repo.git.push('--set-upstream', 'origin', head)\n\n\nsource\n\n\nadd_new_branch\n\n add_new_branch (repo:git.repo.base.Repo, branch_name:str)\n\nCreate new branch and push it to upstream\nNote that we need to split setting up branch in two parts so that if we decide to commit something after setting up gh-pages branch, it won’t interrupt page deployment.\n\nsource\n\n\nsetup_pages_branch_location\n\n setup_pages_branch_location (local_repo:git.repo.base.Repo,\n                              repo_name:str)\n\n\nsource\n\n\nsetup_pages_branch\n\n setup_pages_branch (local_repo:git.repo.base.Repo, repo_name:str)",
+    "crumbs": [
+      "api",
+      "gh"
+    ]
+  }
+]
